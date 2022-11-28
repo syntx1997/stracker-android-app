@@ -52,6 +52,7 @@ export default function LoginScreen({ navigation }) {
         })
         .catch(function(err) {
           console.log(err.response.data);
+          alert( err.response.data.message );
         })
       }
     })
