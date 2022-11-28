@@ -20,6 +20,7 @@ export default function StartScreen({ navigation }) {
             index: 0,
             routes: [{ name: 'Dashboard' }]
           });
+          clearInterval( checkInterval );
         }
 
       })
