@@ -10,6 +10,8 @@ import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
+import axios from 'axios'
+import qs from 'qs'
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -18,15 +20,42 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
+    const baseUrl = 'http://192.168.1.9:8000/'
     if (emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
       return
     }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
+
+    const loginParams = {
+      email: email.value,
+      password: password.value
+    };
+
+    axios.get(baseUrl + 'func/token/generate')
+    .then(function(res) {
+      if(res.data.token) {
+        const token = res.data.token;
+        const axiosConfig = {
+          headers: {
+            'X-CSRF-TOKEN': token
+          }
+        }
+        axios.post(baseUrl + 'func/auth/login', 
+        qs.stringify(loginParams), axiosConfig)
+        .then(function(res) {
+          console.log(res.data);
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Dashboard' }],
+          })
+        })
+        .catch(function(err) {
+          console.log(err.response.data);
+        })
+      }
     })
+
   }
 
   return (
