@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-    const baseUrl = 'http://192.168.1.9:8000/'
+    const baseUrl = 'https://web.stracker-fms.com/'
     if (emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })

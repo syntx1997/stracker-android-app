@@ -10,9 +10,27 @@ import axios from 'axios'
 
 export default function Dashboard({ navigation }) {
 
-  useEffect(() => {
-    const checkInterval = setInterval(() => {
-      axios.get('http://192.168.1.9:8000/func/auth/check-if-logged-in')
+  // useEffect(() => {
+  //   const checkInterval = setInterval(() => {
+  //     axios.get('http://web.stracker-fms.com/func/auth/check-if-logged-in')
+  //     .then(function(res) {
+  //       const data = res.data;
+
+  //       if(data.logged_in == false) {
+  //         navigation.reset({
+  //           index: 0,
+  //           routes: [{ name: 'StartScreen' }]
+  //         });
+  //         clearInterval( checkInterval );
+  //       }
+
+  //     })
+  //   }, 1000)
+  // }, [])
+
+  const checkIfLoggedIn = () => {
+    console.log('running...');
+    axios.get('http://web.stracker-fms.com/func/auth/check-if-logged-in')
       .then(function(res) {
         const data = res.data;
 
@@ -21,16 +39,15 @@ export default function Dashboard({ navigation }) {
             index: 0,
             routes: [{ name: 'StartScreen' }]
           });
-          clearInterval( checkInterval );
         }
 
       })
-    }, 1000)
-  }, [])
+  }
 
   return (
     <View style={{ flex: 1 }}>
-      <WebView style={{ flex: 1 }} source={{ uri: 'http://192.168.1.9:8000/dashboard/staff/index' }} />
+      <WebView style={{ flex: 1 }} source={{ uri: 'https://web.stracker-fms.com/dashboard/staff/index' }}
+      onLoad={ checkIfLoggedIn } />
     </View>
   )
 }

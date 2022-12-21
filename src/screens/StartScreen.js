@@ -10,8 +10,25 @@ import axios from 'axios'
 export default function StartScreen({ navigation }) {
 
   useEffect(() => {
-    const checkInterval = setInterval(() => {
-      axios.get('http://192.168.1.9:8000/func/auth/check-if-logged-in')
+    // const checkInterval = setInterval(() => {
+    //   console.log('running...');
+    //   axios.get('https://web.stracker-fms.com/func/auth/check-if-logged-in')
+    //   .then(function(res) {
+    //     const data = res.data;
+
+    //     if(data.logged_in == true) {
+    //       navigation.reset({
+    //         index: 0,
+    //         routes: [{ name: 'Dashboard' }]
+    //       });
+    //       clearInterval( checkInterval );
+    //     }
+
+    //   })
+    // }, 1000)
+
+    console.log('running...');
+    axios.get('https://web.stracker-fms.com/func/auth/check-if-logged-in')
       .then(function(res) {
         const data = res.data;
 
@@ -20,11 +37,9 @@ export default function StartScreen({ navigation }) {
             index: 0,
             routes: [{ name: 'Dashboard' }]
           });
-          clearInterval( checkInterval );
         }
 
       })
-    }, 1000)
   }, [])
 
   return (
