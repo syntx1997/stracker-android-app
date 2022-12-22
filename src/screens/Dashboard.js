@@ -7,6 +7,7 @@ import Button from '../components/Button'
 import { WebView } from 'react-native-webview'
 import { View } from 'react-native'
 import axios from 'axios'
+import ProgressBarWebView from 'react-native-progress-webview'
 
 export default function Dashboard({ navigation }) {
 
@@ -46,7 +47,7 @@ export default function Dashboard({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <WebView style={{ flex: 1 }} source={{ uri: 'https://web.stracker-fms.com/dashboard/staff/index' }}
+      <ProgressBarWebView style={{ flex: 1 }} source={{ uri: 'https://web.stracker-fms.com/dashboard/staff/index' }}
       onLoad={ checkIfLoggedIn } />
     </View>
   )

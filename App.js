@@ -10,12 +10,18 @@ import {
   ResetPasswordScreen,
   Dashboard,
 } from './src/screens'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { NativeModules, Platform } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 
 const Stack = createStackNavigator()
+const { StatusBarManager } = NativeModules;
 
 export default function App() {
   return (
-    <Provider theme={theme}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar style={{ backgroundColor: '#000000' }}></StatusBar>
+      <Provider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="StartScreen"
@@ -34,5 +40,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
+    </SafeAreaView>
   )
 }
